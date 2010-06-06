@@ -14,7 +14,7 @@ use constant Kosten => 5;
 sub Aktion {
     my ( $package, $Spieler ) = @_;
 
-    $Spieler->nimmt_auf_die_Hand(2);
+    $Spieler->bekommt_Karten(2);
 
     for my $Gegner ( $Spieler->Gegner ) {
         next if $Gegner->wehrt_ab( $package, $Spieler );

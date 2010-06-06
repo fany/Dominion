@@ -65,7 +65,7 @@ sub BUILD {
         $_->Spiel($self);
         $_->nimmt( ( Karte('Kupfer') ) x 7 );
         $_->Ablagestapel->add( ( Karte('Anwesen') ) x 3 );
-        $_->nimmt_auf_die_Hand(5);
+        $_->bekommt_Karten(5);
     }
 }
 

@@ -26,7 +26,11 @@ sub Kaufphase {
         $self->Karten( Karte('Hexe') ) >= 2 ? ()          : 'Hexe',
         $self->Karten( Karte('Gold') ) >= 2 ? 'Herzogtum' : (),
         $self->Karten( Karte('Markt') )     ? ()          : 'Markt',
-        $self->Karten( Karte('Schmiede'), Karte('Hexe') ) ? () : 'Schmiede',
+        $self->Karten( Karte('Schmiede'), Karte('Hexe') )
+        ? $self->Karten( Karte('Spion') )
+              ? ()
+              : 'Spion'
+        : 'Schmiede',
         'Laboratorium',
         $self->Karten( Karte('Gold') ) >= 2 ? 'Gärten' : (),
         'Silber',

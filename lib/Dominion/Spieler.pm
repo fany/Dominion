@@ -143,7 +143,7 @@ sub nimmt {
     $self->Ablagestapel->add( $self->Spiel->Vorrat->sub(@Karten) );
 }
 
-sub nimmt_auf_die_Hand {
+sub bekommt_Karten {
     my ( $self, $Karten ) = @_;
     my @gezogene_Karten = $self->zieht_vom_Nachziehstapel($Karten);
     print ' zieht ' . Kartenliste(@gezogene_Karten) . ".\n" if $ENV{DEBUG};
@@ -211,7 +211,7 @@ sub Kaufphase { }
 sub Aufraeumphase {
     my $self = shift;
     $self->Ablagestapel->add( $self->Auslage->leeren, $self->Hand->leeren );
-    $self->nimmt_auf_die_Hand(5);
+    $self->bekommt_Karten(5);
 }
 
 sub Gegner {

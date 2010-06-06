@@ -10,7 +10,7 @@ use constant Kosten => 3;
 
 sub Aktion {
     my ( $package, $Spieler ) = @_;
-    $Spieler->nimmt_auf_die_Hand(1);
+    $Spieler->bekommt_Karten(1);
     $Spieler->bekommt_Aktionen(2);
 }
 
