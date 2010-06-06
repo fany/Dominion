@@ -20,7 +20,8 @@ sub Aktion {
         $Spieler->bekommt_Geld(3);
         return;
     }
-    croak( "$package: " . $Spieler->Name . ' hat kein Kupfer auf der Hand.' );
+    print '  ' . $Spieler->Name . " hat kein Kupfer auf der Hand.\n"
+      if $ENV{DEBUG};
 }
 
 1;
