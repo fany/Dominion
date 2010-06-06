@@ -21,7 +21,9 @@ sub Aktion {
     $Spieler->bekommt_Karten(1);
     $Spieler->bekommt_Aktionen(1);
 
-    for my $Gegner ( $Spieler->Spiel->Spieler ) {
+    for ( [ darf => $Spieler ], map [ muss => $_ ], $Spieler->Gegner ) {
+        my ( $Verb, $Gegner ) = @$_;
+
         unless ( my ($Karte) = $Gegner->zieht_vom_Nachziehstapel(1) ) {
             print '  ' . $Gegner->Name . " hat keine Karten zum Nachziehen.\n"
               if $ENV{DEBUG};
@@ -29,7 +31,7 @@ sub Aktion {
         elsif ( $entscheide_ob_ablegen->( $Gegner, $Karte ) ) {
             print '  '
               . $Gegner->Name
-              . ' muss '
+              . " $Verb "
               . Kartenliste($Karte)
               . " ablegen.\n"
               if $ENV{DEBUG};
@@ -38,7 +40,7 @@ sub Aktion {
         else {
             print '  '
               . $Gegner->Name
-              . ' muss '
+              . " $Verb "
               . Kartenliste($Karte)
               . " zurück auf den Nachziehstapel legen.\n"
               if $ENV{DEBUG};

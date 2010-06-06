@@ -215,8 +215,11 @@ sub Aufraeumphase {
 }
 
 sub Gegner {
-    my $self = shift;
-    grep $_ ne $self, $self->Spiel->Spieler;
+    my $self    = shift;
+    my @Spieler = $self->Spiel->Spieler;
+    my $i       = $#Spieler;
+    --$i until $Spieler[$i] eq $self;
+    @Spieler[ $i + 1 .. $#Spieler, 0 .. $i - 1 ];
 }
 
 sub Geld {
