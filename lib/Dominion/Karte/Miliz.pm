@@ -18,6 +18,7 @@ sub Aktion {
 
     for my $Gegner ( $Spieler->Gegner ) {
         next if $Gegner->wehrt_ab( $package, $Spieler );
+
         if ( my @Karten_zum_Ablegen =
             $Gegner->wird_angegriffen_von_Miliz($Spieler) )
         {

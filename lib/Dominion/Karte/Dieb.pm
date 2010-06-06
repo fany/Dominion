@@ -65,7 +65,7 @@ sub Aktion {
         print '  '
           . $Gegner->Name
           . ' muss '
-          . Kartenliste($Geldkarte_zum_Entsorgen)
+          . $Geldkarte_zum_Entsorgen->Name
           . " entsorgen.\n"
           if $ENV{DEBUG};
 

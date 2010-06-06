@@ -19,11 +19,13 @@ use constant SUBST => {
 };
 
 my %Karte;
+
 sub Karte($) {
     my $typ = shift;
     return $Karte{$typ} if exists $Karte{$typ};
     my $package = $typ;
-    $package =~ s/(${\ join '|', map quotemeta, keys %{+SUBST} })/ SUBST->{$1} /ego;
+    $package =~
+      s/(${\ join '|', map quotemeta, keys %{+SUBST} })/ SUBST->{$1} /ego;
     $package = "Dominion::Karte::$package" if $package !~ /::/;
     eval "require $package";
     die $@ if length $@;
@@ -33,16 +35,14 @@ sub Karte($) {
 sub Kartenliste {
     my %Karten;
     ++$Karten{$_} for @_;
-    my $mehrere;
+    my $mehrere = '';
     for ( values %Karten ) {
         next if $_ == 1;
         $mehrere = 1;
         last;
     }
-    join ' + ', map {
-        ( my $kurz = $_ ) =~ s/^Dominion::Karte:://;
-        $mehrere ? "$Karten{$_}x $kurz" : $kurz;
-    } sort keys %Karten;
+    join ' + ', map +( $mehrere && "$Karten{$_}x " ) . $_->Name,
+      sort keys %Karten;
 }
 
 1;

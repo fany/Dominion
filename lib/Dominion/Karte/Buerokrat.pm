@@ -29,7 +29,7 @@ sub Aktion {
             print '  '
               . $Gegner->Name
               . ' legt '
-              . Kartenliste($Karte)
+              . $Karte->Name
               . " auf seinen Nachziehstapel.\n"
               if $ENV{DEBUG};
             $Gegner->Nachziehstapel->add( $Gegner->Hand->sub($Karte) );

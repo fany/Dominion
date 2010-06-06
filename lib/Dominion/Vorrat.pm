@@ -9,7 +9,6 @@ use Moose;
 extends 'Dominion::Kartenmenge';
 
 use Carp qw(croak);
-use Dominion qw(Kartenliste);
 use Moose::Util::TypeConstraints;
 use Scalar::Util qw(reftype);
 
@@ -81,7 +80,7 @@ sub leere_Stapel {
 sub sub {
     my ( $self, @Karten ) = @_;
     $self->_Karten->{$_}--
-      or croak( ref($self) . ' enthält keine ' . Kartenliste($_) . '.' )
+      or croak( ref($self) . ' enthält keine ' . $_->Name . '.' )
       for @Karten;
     @Karten;
 }
