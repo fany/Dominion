@@ -1,0 +1,82 @@
+#!/usr/local/bin/perl
+
+use strict;
+use utf8;
+use warnings;
+
+use rlib 'lib';
+use Dominion qw(Karte Kartenliste);
+use FindBin;
+use Getopt::Long qw(GetOptions);
+use IO::File ();
+use List::Util qw(sum);
+use open ':locale';
+
+my %Ohne;
+GetOptions(
+    'ohne=s' => sub {
+        my ( $option, $value ) = @_;
+        ++$Ohne{ Karte($value) };
+    },
+    'spiele=i'   => \( my $Spiele   = 1000 ),
+    'spieltyp=s' => \( my $Spieltyp = 'Spiel' ),
+    'srand=f' => sub { my ( $option, $value ) = @_; srand $value },
+    'verbose' => \my $Verbose,
+    'zeige-muell' => \my $ZeigeMuell,
+);
+
+$Spieltyp = "Dominion::$Spieltyp" if $Spieltyp !~ /::/;
+eval "require $Spieltyp" or die $@;
+
+my @Spieler;
+for (@ARGV) {
+    my @args;
+    push @args, Name => $1 if s/=(.*)//;
+    $_ = "Dominion::Strategie::$_" unless /::/;
+    eval "require $_" or die $@;
+    push @Spieler, [ $_, \@args ];
+}
+
+my @Koenigreichkarten = grep !exists $Ohne{$_},
+  map { s#.*/(.*)\.pm\z#$1#; Karte($_) } <$FindBin::Bin/lib/Dominion/Karte/*.pm>;
+
+open my $tty, '>', '/dev/tty';
+$tty->autoflush;
+my ( %gewonnen, $Runden );
+for ( 1 .. $Spiele ) {
+    my $Spiel = $Spieltyp->new(
+        Koenigreichkarten => \@Koenigreichkarten,
+        Spieler           => [ map $_->[0]->new( @{ $_->[1] } ), @Spieler ],
+    );
+
+    $Spiel->spielen;
+    $Runden += sum( map $_->Zuege, $Spiel->Spieler ) / @{ $Spiel->Spieler };
+
+    print $tty '.';
+    ++$gewonnen{ join( '+', sort map $_->Name, $Spiel->Gewinner ) };
+    if ($Verbose) {
+        print "\n" if $_ > 1;
+        printf
+          "%s: %d Punkte nach %d Zügen (%d Karten: %s; %.1f Geld/Karte)%s\n",
+          $_->Name,
+          $_->Punkte,
+          $_->Zuege, scalar $_->Karten, Kartenliste( $_->Karten ),
+          $_->Geld / $_->Karten, $_->ist_Gewinner && ' - gewonnen!'
+          for $Spiel->Spieler;
+    }
+    if ($ZeigeMuell) {
+        my @Karten = $Spiel->Muell->Karten;
+        print @Karten 
+          . ' Karte'
+          . ( @Karten != 1 && 'n' )
+          . ' auf dem Müll'
+          . ( @Karten ? ': ' . Kartenliste(@Karten) : '.' ) . "\n";
+    }
+}
+continue { push @Spieler, shift @Spieler }
+print $tty "\n";
+
+printf '%' . length($Spiele) . "d (%2.f %%) %s\n", $gewonnen{$_},
+  100 * $gewonnen{$_} / $Spiele, $_
+  for sort keys %gewonnen;
+printf "Durchschnittliche Spieldauer: %.1f Runden\n", $Runden / $Spiele;
