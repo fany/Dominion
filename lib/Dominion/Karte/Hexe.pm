@@ -18,6 +18,7 @@ sub Aktion {
 
     for my $Gegner ( $Spieler->Gegner ) {
         next if $Gegner->wehrt_ab( $package, $Spieler );
+
         if ( $Gegner->Spiel->Vorrat->Karten( Karte('Fluch') ) ) {
             print '  ' . $Gegner->Name . " nimmt eine Fluch-Karte.\n"
               if $ENV{DEBUG};

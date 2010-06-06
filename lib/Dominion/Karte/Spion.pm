@@ -24,6 +24,8 @@ sub Aktion {
     for ( [ darf => $Spieler ], map [ muss => $_ ], $Spieler->Gegner ) {
         my ( $Verb, $Gegner ) = @$_;
 
+        next if $Gegner->wehrt_ab( $package, $Spieler );
+
         unless ( my ($Karte) = $Gegner->zieht_vom_Nachziehstapel(1) ) {
             print '  ' . $Gegner->Name . " hat keine Karten zum Nachziehen.\n"
               if $ENV{DEBUG};

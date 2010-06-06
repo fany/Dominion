@@ -20,6 +20,7 @@ sub Aktion {
 
     for my $Gegner ( $Spieler->Gegner ) {
         next if $Gegner->wehrt_ab( $package, $Spieler );
+
         if (
             my ($Karte) =
             sort { $a->Punkte($Gegner) <=> $b->Punkte($Gegner) }
