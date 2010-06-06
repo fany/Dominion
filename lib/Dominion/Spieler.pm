@@ -89,7 +89,6 @@ sub bekommt_Kaeufe {
 
 sub entsorgt {
     my ( $self, @Karten ) = @_;
-    print ' entsorgt ' . Kartenliste(@Karten) . ".\n" if $ENV{DEBUG};
     $self->Spiel->Muell->add( $self->Hand->sub(@Karten) );
 }
 
@@ -120,9 +119,9 @@ sub kauft {
           if $ENV{DEBUG};
     }
     $self->Kaeufe_frei( $self->Kaeufe_frei - @Karten );
+    print ' kauft ' . Kartenliste(@Karten) . ".\n" if $ENV{DEBUG};
     $self->bekommt_Geld( -$Kosten );
     $self->nimmt(@Karten);
-    print ' kauft ' . Kartenliste(@Karten) . ".\n" if $ENV{DEBUG};
 }
 
 sub kauft_erstbeste {

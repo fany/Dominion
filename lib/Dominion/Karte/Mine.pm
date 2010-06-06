@@ -20,7 +20,7 @@ sub Aktion {
         croak(  "$package: "
               . $Spieler->Name . ' hat '
               . Kartenliste(@Geldkarten)
-              . ', aber keine zur Entsorgung angegeben.' );
+              . ', aber keine zum Umtausch angegeben.' );
     }
     croak("$package: Die neue Karte muss eine Geldkarte sein.")
       unless $Karte_neu->can('Geld');
@@ -28,10 +28,13 @@ sub Aktion {
           . " mehr kosten als die zu entsorgende ($Karte_alt)." )
       if $Karte_neu->Kosten - $Karte_alt->Kosten > 3;
 
-    $Spieler->entsorgt($Karte_alt);
-
-    print ' nimmt ' . $Karte_neu->Name . " auf die Hand.\n"
+    print '  entsorgt '
+      . $Karte_alt->Name
+      . ' und nimmt dafür '
+      . $Karte_neu->Name
+      . " auf die Hand.\n"
       if $ENV{DEBUG};
+    $Spieler->entsorgt($Karte_alt);
     $Spieler->Hand->add( $Spieler->Spiel->Vorrat->sub($Karte_neu) );
 }
 
