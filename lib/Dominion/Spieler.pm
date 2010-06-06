@@ -145,19 +145,20 @@ sub nimmt {
 
 sub nimmt_auf_die_Hand {
     my ( $self, $Karten ) = @_;
-    my @gezogene_Karten;
-    if ( ( my $_Karten = $self->Nachziehstapel->Karten ) < $Karten ) {
-        @gezogene_Karten = $self->Nachziehstapel->leeren;
-        $self->Nachziehstapel->add( shuffle( $self->Ablagestapel->leeren ) );
-        push @gezogene_Karten,
-          $self->Nachziehstapel->pop(
-            min( $Karten - $_Karten, scalar $self->Nachziehstapel->Karten ) );
-    }
-    else { @gezogene_Karten = $self->Nachziehstapel->pop($Karten) }
+    my @gezogene_Karten = $self->zieht_vom_Nachziehstapel($Karten);
     print ' zieht ' . Kartenliste(@gezogene_Karten) . ".\n" if $ENV{DEBUG};
-
-    # && caller->isa('Dominion::Karte');
     $self->Hand->add(@gezogene_Karten);
+}
+
+sub zieht_vom_Nachziehstapel {
+    my ( $self, $Karten ) = @_;
+    ( my $_Karten = $self->Nachziehstapel->Karten ) >= $Karten
+      and return $self->Nachziehstapel->pop($Karten);
+    my @gezogene_Karten = $self->Nachziehstapel->leeren;
+    $self->Nachziehstapel->add( shuffle( $self->Ablagestapel->leeren ) );
+    @gezogene_Karten,
+      $self->Nachziehstapel->pop(
+        min( $Karten - $_Karten, scalar $self->Nachziehstapel->Karten ) );
 }
 
 sub zieht {

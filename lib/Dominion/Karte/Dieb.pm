@@ -8,7 +8,6 @@ use base 'Dominion::Kartentyp::Aktion_Angriff';
 
 use Carp qw(croak);
 use Dominion qw(Kartenliste);
-use List::Util qw(min);
 use Scalar::Util qw(reftype);
 
 use constant Kosten => 4;
@@ -35,8 +34,7 @@ sub Aktion {
 
         my @Geldkarten;
         {
-            my @aufgedeckte_Karten = $Gegner->Nachziehstapel->pop(
-                min( scalar $Gegner->Nachziehstapel->Karten, 2 ) );
+            my @aufgedeckte_Karten = $Gegner->zieht_vom_Nachziehstapel(2);
             print '  '
               . $Gegner->Name
               . ' deckt '
