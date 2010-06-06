@@ -4,11 +4,12 @@ use warnings;
 
 package Dominion::Vorrat;
 
-use base 'Dominion::Kartenmenge';
+use Moose;
+
+extends 'Dominion::Kartenmenge';
 
 use Carp qw(croak);
 use Dominion qw(Kartenliste);
-use Moose;
 use Moose::Util::TypeConstraints;
 use Scalar::Util qw(reftype);
 

@@ -4,9 +4,10 @@ use warnings;
 
 package Dominion::Strategie::Katrin;
 
-use base 'Dominion::Spieler';
-
 use Dominion qw(Karte);
+use Moose;
+
+extends 'Dominion::Spieler';
 
 sub Kaufphase {
     shift->kauft_erstbeste( map Karte($_), qw(Provinz Gold Herzogtum Silber Kupfer) );

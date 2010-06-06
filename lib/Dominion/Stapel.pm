@@ -4,11 +4,11 @@ use warnings;
 
 package Dominion::Stapel;
 
-use base 'Dominion::Kartenmenge';
-
 use Carp qw(croak);
 use Moose;
 use Moose::Util::TypeConstraints;
+
+extends 'Dominion::Kartenmenge';
 
 coerce __PACKAGE__, (
     from

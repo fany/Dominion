@@ -64,7 +64,7 @@ sub BUILD {
     for ( $self->Spieler ) {
         $_->Spiel($self);
         $_->nimmt( ( Karte('Kupfer') ) x 7 );
-        $_->nimmt( ( Karte('Anwesen') ) x 3 );
+        $_->Ablagestapel->add( ( Karte('Anwesen') ) x 3 );
         $_->nimmt_auf_die_Hand(5);
     }
 }

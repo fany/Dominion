@@ -4,9 +4,10 @@ use warnings;
 
 package Dominion::Strategie::fany;
 
-use base 'Dominion::Spieler';
-
 use Dominion qw(Karte);
+use Moose;
+
+extends 'Dominion::Spieler';
 
 sub Aktionsphase {
     my $self = shift;

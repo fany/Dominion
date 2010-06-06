@@ -4,11 +4,11 @@ use warnings;
 
 package Dominion::TestSpiel;
 
-use base 'Dominion::Spiel';
-
 use Dominion qw(Karte);
 use List::Util qw(min);
 use Moose;
+
+extends 'Dominion::Spiel';
 
 =cut
 
