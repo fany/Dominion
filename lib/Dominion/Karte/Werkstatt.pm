@@ -16,6 +16,7 @@ sub Aktion {
       unless defined $Karte && $Karte->isa('Dominion::Karte');
     croak("$package erlaubt nur das Nehmen von Karten, die maximal 4 kosten.")
       if $Karte->Kosten > 4;
+
     $Spieler->nimmt($Karte);
 }
 
