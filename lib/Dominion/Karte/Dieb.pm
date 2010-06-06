@@ -9,6 +9,7 @@ use base 'Dominion::Kartentyp::Aktion_Angriff';
 use Carp qw(croak);
 use Dominion qw(Kartenliste);
 use List::Util qw(min);
+use Scalar::Util qw(reftype);
 
 use constant Kosten => 4;
 
@@ -16,6 +17,9 @@ sub Aktion {
     my ( $package, $Spieler, $entscheide_welche_entsorgen,
         $entscheide_welche_nehmen )
       = @_;
+    croak("$package braucht zwei Sub-Routinen als Argumente.")
+      if grep !defined || reftype($_) ne 'CODE', $entscheide_welche_entsorgen,
+        $entscheide_welche_nehmen;
 
     my @entsorgte_Geldkarten;
     for my $Gegner ( $Spieler->Gegner ) {
