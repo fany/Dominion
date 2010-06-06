@@ -42,14 +42,23 @@ sub Aktionsphase {
             },
         ],
         [
+            Karte('Festmahl') => sub {
+                $self->finde_beste_Karte( sub { shift->Kosten <= 5 } );
+              }
+        ],
+        [
             Karte('Geldverleiher') => sub {
                 if   ( $self->Hand->Karten( Karte('Kupfer') ) ) { undef }
                 else                                            { () }
               }
         ],
         [
-            Karte('Festmahl') => sub {
-                $self->finde_beste_Karte( sub { shift->Kosten <= 5 } );
+            Karte('Spion') => sub {
+                sub {
+                    my ( $Gegner, $Karte ) = @_;
+                    $Karte->can('Aktion')
+                      || $Karte->can('Geld') xor $Gegner eq $self;
+                  }
               }
         ],
         [

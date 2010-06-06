@@ -27,10 +27,10 @@ around BUILDARGS => sub {
 };
 
 has _Karten => (
-    isa        => 'ArrayRef[Dominion::Karte]',
-    is         => 'ro',
-    required   => 1,
-    default    => sub { [] },
+    isa      => 'ArrayRef[Dominion::Karte]',
+    is       => 'ro',
+    required => 1,
+    default  => sub { [] },
 );
 
 sub Karten {
@@ -61,7 +61,11 @@ sub pop {
           . $self->Karten
           . " statt $Karten Karten." )
       if $self->Karten < $Karten;
-    reverse splice @{ $self->_Karten }, -$Karten;
+    if (wantarray) { reverse splice @{ $self->_Karten }, -$Karten }
+    elsif ( $Karten != 1 ) {
+        croak( ref($self) . "->pop($Karten) in skalarem Kontext aufgerufen." );
+    }
+    else { pop @{ $self->_Karten } }
 }
 
 __PACKAGE__->meta->make_immutable;
