@@ -14,6 +14,7 @@ use open ':locale';
 
 my %Ohne;
 GetOptions(
+    'debug+' => sub { ++$ENV{DEBUG} },
     'ohne=s' => sub {
         my ( $option, $value ) = @_;
         ++$Ohne{ Karte($value) };
@@ -38,7 +39,8 @@ for (@ARGV) {
 }
 
 my @Koenigreichkarten = grep !exists $Ohne{$_},
-  map { s#.*/(.*)\.pm\z#$1#; Karte($_) } <$FindBin::Bin/lib/Dominion/Karte/*.pm>;
+  map { s#.*/(.*)\.pm\z#$1#; Karte($_) }
+  <$FindBin::Bin/lib/Dominion/Karte/*.pm>;
 
 open my $tty, '>', '/dev/tty';
 $tty->autoflush;
