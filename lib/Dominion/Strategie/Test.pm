@@ -18,9 +18,11 @@ sub Aktionsphase {
                   sort { $b->Kosten <=> $a->Kosten }
                   grep $_->can('Aktion')
 
-              # TODO: Diese Karten im Zusammenhang mit Thronsaal implementieren:
+              # TODO: Diese Karten im Zusammenhang mit Thronsaal implementieren,
+              # soweit sinnvoll:
                   && $_ ne Karte('Thronsaal')
                   && $_ ne Karte('Spion')
+                  && $_ ne Karte('Keller')
                   && $_ ne Karte('Bibliothek')
                   && $_ ne Karte('Mine')
                   && $_ ne Karte('Dieb')
@@ -43,6 +45,20 @@ sub Aktionsphase {
                       || $Karte->can('Geld') xor $Gegner eq $self;
                   }
               }
+        ],
+        [
+            Karte('Keller') => sub {
+                my $Keller = my $andere_Aktionskarten = 0;
+                grep {
+                    if ( $_->can('Geld') ) { '' }
+                    elsif ( !$Keller && $_ eq Karte('Keller') ) {
+                        ++$Keller;
+                        '';
+                    }
+                    elsif ( $_->can('Aktion') ) { $andere_Aktionskarten++ }
+                  }
+                  sort { $b->Kosten <=> $a->Kosten } $self->Hand->Karten;
+            },
         ],
         [
             Karte('Bibliothek') => sub {
