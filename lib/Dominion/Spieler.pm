@@ -252,6 +252,18 @@ sub wehrt_ab {
     '';
 }
 
+# für Gesandten:
+sub waehlt_abzulegende_Karte_fuer_Spieler_rechts {
+    my ( $self, $Gegner, @Karten ) = @_;
+    my ($abzulegende_Karte) = sort {
+        ( $b->can('Geld') ? $b->Geld : 0 )
+          <=> ( $a->can('Geld') ? $a->Geld : 0 )
+          || $b->can('Aktion') <=> $a->can('Aktion')
+          || $b->Kosten <=> $a->Kosten
+    } @Karten;
+    $abzulegende_Karte;
+}
+
 # für Angriff mit Miliz:
 sub wird_angegriffen_von_Miliz {
     my $self = shift;
