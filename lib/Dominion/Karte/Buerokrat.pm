@@ -9,7 +9,7 @@ use base 'Dominion::Kartentyp::Aktion_Angriff';
 use Carp qw(croak);
 use Dominion qw(Karte Kartenliste);
 
-use constant Kosten => 4;
+use constant { Kosten => 4, Name => 'Bürokrat' };
 
 sub Aktion {
     my ( $package, $Spieler ) = @_;

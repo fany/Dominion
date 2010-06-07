@@ -6,7 +6,7 @@ package Dominion::Karte::Holzfaeller;
 
 use base 'Dominion::Kartentyp::Aktion';
 
-use constant Kosten => 3;
+use constant { Kosten => 3, Name => 'Holzfäller' };
 
 sub Aktion {
     my ( $package, $Spieler ) = @_;
