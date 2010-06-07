@@ -12,8 +12,9 @@ extends 'Dominion::Spieler';
 sub Aktionsphase {
     my $self = shift;
 
-    $self->verwendet_Aktionskarten( map Karte($_),
-        qw(Markt Laboratorium Hexe Schmiede) );
+    $self->verwendet_Aktionskarten(
+        map( Karte($_), qw(Markt Laboratorium Hexe Schmiede) ),
+    );
 }
 
 sub Kaufphase {

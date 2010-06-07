@@ -33,6 +33,7 @@ sub Karte($) {
 }
 
 sub Kartenliste {
+    return 'keine Karten' unless @_;
     my %Karten;
     ++$Karten{$_} for @_;
     my $mehrere = '';
