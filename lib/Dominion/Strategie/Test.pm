@@ -21,6 +21,7 @@ sub Aktionsphase {
               # TODO: Diese Karten im Zusammenhang mit Thronsaal implementieren:
                   && $_ ne Karte('Thronsaal')
                   && $_ ne Karte('Spion')
+                  && $_ ne Karte('Bibliothek')
                   && $_ ne Karte('Mine')
                   && $_ ne Karte('Dieb')
                   && $_ ne Karte('Festmahl')
