@@ -44,6 +44,11 @@ sub Aktionsphase {
               }
         ],
         [
+            Karte('Bibliothek') => sub {
+                sub { !$self->Aktionen_frei }
+              }
+        ],
+        [
             Karte('Mine') => sub {
                 my ($Karte_alt) =
                   sort { $a->Kosten <=> $b->Kosten } grep $_->can('Geld'),

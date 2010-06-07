@@ -15,7 +15,7 @@ sub Aktion {
 
     my ( @Geldkarten, @andere_Karten );
     while ( @Geldkarten < 2
-        && ( my $Karte = $Spieler->zieht_vom_Nachziehstapel(1) ) )
+        && ( my ($Karte) = $Spieler->zieht_vom_Nachziehstapel(1) ) )
     {
         if   ( $Karte->can('Geld') ) { push @Geldkarten,    $Karte }
         else                         { push @andere_Karten, $Karte }
