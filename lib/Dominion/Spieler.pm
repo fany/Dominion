@@ -258,7 +258,7 @@ sub waehlt_abzulegende_Karte_fuer_Spieler_rechts {
     my ($abzulegende_Karte) = sort {
         ( $b->can('Geld') ? $b->Geld : 0 )
           <=> ( $a->can('Geld') ? $a->Geld : 0 )
-          || $b->can('Aktion') <=> $a->can('Aktion')
+          || ( $b->can('Aktion') || 0 ) <=> ( $a->can('Aktion') || 0 )
           || $b->Kosten <=> $a->Kosten
     } @Karten;
     $abzulegende_Karte;
