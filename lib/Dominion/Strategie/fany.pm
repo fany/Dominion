@@ -5,7 +5,7 @@ use warnings;
 package Dominion::Strategie::fany;
 
 use Dominion qw(Karte);
-use Moose;
+use Any::Moose;
 
 extends 'Dominion::Spieler';
 
@@ -34,6 +34,6 @@ sub Kaufphase {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
+no Any::Moose;
 
 1;

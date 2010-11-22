@@ -4,12 +4,12 @@ use warnings;
 
 package Dominion::Vorrat;
 
-use Moose;
+use Any::Moose;
 
 extends 'Dominion::Kartenmenge';
 
 use Carp qw(croak);
-use Moose::Util::TypeConstraints;
+use Any::Moose '::Util::TypeConstraints';
 use Scalar::Util qw(reftype);
 
 coerce __PACKAGE__,
@@ -86,6 +86,6 @@ sub sub {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
+no Any::Moose;
 
 1;

@@ -5,8 +5,8 @@ use warnings;
 package Dominion::Stapel;
 
 use Carp qw(croak);
-use Moose;
-use Moose::Util::TypeConstraints;
+use Any::Moose;
+use Any::Moose '::Util::TypeConstraints';
 
 extends 'Dominion::Kartenmenge';
 

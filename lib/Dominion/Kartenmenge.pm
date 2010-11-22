@@ -5,7 +5,7 @@ use warnings;
 package Dominion::Kartenmenge;
 
 use List::Util qw(sum);
-use Moose;
+use Any::Moose;
 
 sub Geld {
     my $self = shift;
@@ -24,6 +24,6 @@ sub unterschiedliche_Karten {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
+no Any::Moose;
 
 1;

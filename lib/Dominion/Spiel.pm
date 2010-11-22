@@ -7,7 +7,7 @@ package Dominion::Spiel;
 use Carp qw(croak);
 use Dominion qw(Karte);
 use Dominion::Vorrat;
-use Moose;
+use Any::Moose;
 use Scalar::Util qw(reftype);
 
 has Spieler => (
@@ -105,6 +105,6 @@ sub spielen {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
+no Any::Moose;
 
 1;

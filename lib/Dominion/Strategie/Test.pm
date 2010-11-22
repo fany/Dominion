@@ -5,7 +5,7 @@ use warnings;
 package Dominion::Strategie::Test;
 
 use Dominion qw(Karte);
-use Moose;
+use Any::Moose;
 
 extends 'Dominion::Spieler';
 
@@ -174,6 +174,6 @@ sub finde_beste_Karte {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
+no Any::Moose;
 
 1;

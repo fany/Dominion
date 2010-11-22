@@ -8,8 +8,8 @@ use Carp qw(croak);
 use Dominion qw(Karte Kartenliste);
 use Dominion::Stapel;
 use List::Util qw(min shuffle sum);
-use Moose;
-use Moose::Util::TypeConstraints;
+use Any::Moose;
+use Any::Moose '::Util::TypeConstraints';
 use Scalar::Util qw(reftype);
 
 coerce __PACKAGE__, from 'HashRef' => via { __PACKAGE__->new(%$_) };
@@ -290,6 +290,6 @@ sub wird_angegriffen_von_Miliz {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
+no Any::Moose;
 
 1;

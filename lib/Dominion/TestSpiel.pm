@@ -6,7 +6,7 @@ package Dominion::TestSpiel;
 
 use Dominion qw(Karte);
 use List::Util qw(min);
-use Moose;
+use Any::Moose;
 
 extends 'Dominion::Spiel';
 
@@ -44,6 +44,6 @@ sub spielen {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
+no Any::Moose;
 
 1;
