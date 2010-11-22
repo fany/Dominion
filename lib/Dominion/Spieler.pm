@@ -290,5 +290,6 @@ sub wird_angegriffen_von_Miliz {
 }
 
 __PACKAGE__->meta->make_immutable;
+no Moose;
 
 1;
